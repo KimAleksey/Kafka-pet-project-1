@@ -115,8 +115,12 @@ def get_user_coordinates_schema(url: str, subject: str | None = None) -> None:
         logging.info(f"❌ Схема {subject} не получена. {response.status_code} {response.text}")
 
 
-if __name__ == "__main__":
+def create_users_coordinates_schema():
     base_url = get_schema_registry_url()
     schema_subject = get_users_coordinates_subject()
     create_user_coordinates_schema(url=base_url, json_schema=USERS_COORDINATES_JSON_SCHEMA, subject=schema_subject)
     get_user_coordinates_schema(base_url, subject=schema_subject)
+
+
+if __name__ == "__main__":
+    create_users_coordinates_schema()

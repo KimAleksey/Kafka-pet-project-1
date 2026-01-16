@@ -91,7 +91,7 @@ def create_topic(
             logging.error(f"Не удалось создать топик '{topic}': {e}")
 
 
-if __name__ == "__main__":
+def create_users_coordinates_topic():
     # Получаем хост брокера
     bootstrap_serv = get_bootstrap_server()
     # Создаем топик для users_coordinates
@@ -103,4 +103,8 @@ if __name__ == "__main__":
         bootstrap_servers=bootstrap_serv
     )
     # Проверка, что топик есть
-    users_coord_topic = get_users_coordinates_topic()
+    get_users_coordinates_topic()
+
+
+if __name__ == "__main__":
+    create_users_coordinates_topic()

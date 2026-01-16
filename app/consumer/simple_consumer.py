@@ -164,9 +164,10 @@ def main():
     # Запуск чтения с ручным коммитом offset.
     # consume(auto_commit=False)
     # Запуск чтения с ручным коммитом offset, сначала.
-    consume(auto_commit=False, reset_offsets=False)
+    # consume(auto_commit=False, reset_offsets=False)
     # Запуск чтения с ручным коммитом offset, с последнего места.
-    # consume(auto_commit=False, reset_offsets=True)
+    consume(auto_commit=False, reset_offsets=True)
+
 
 if __name__ == "__main__":
     main()
