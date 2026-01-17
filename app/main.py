@@ -28,10 +28,6 @@ def main():
     p1.start()
     p2.start()
 
-    # Ждём завершения обоих процессов
-    p1.join()
-    p2.join()
-
 
 if __name__ == "__main__":
     main()
