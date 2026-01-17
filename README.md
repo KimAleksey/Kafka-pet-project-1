@@ -98,7 +98,11 @@ docker compose up -d
 ### Работа с Kafka.
 
 1. Перейти в http://localhost:8888/.
+
+![img.png](docs/images/img_2.png)
 2. Убедиться что в topic идет запись сообщений.
+
+![img.png](docs/images/img_3.png)
 3. В консоли можно увидеть вот такой лог:
 ```text
 2026-01-17 02:21:29,978 | INFO | root | Bootstrap server: localhost:29092
