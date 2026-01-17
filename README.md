@@ -1,4 +1,4 @@
-# Проект для работы кластером Kafka и Schema Registry.
+# Проект для работы c кластером Kafka и Schema Registry.
 
 ## 💻 Что в проекте
 
@@ -55,8 +55,8 @@
 ### Клонирование репозитория:
 
 ```bash
-git clone https://github.com/KimAleksey/Kafka-pet-project-1.git
-cd Kafka-pet-project-1
+git clone https://github.com/KimAleksey/Kafka-cluster-with-schema-registry.git
+cd Kafka-cluster-with-schema-registry
 ```
 
 ### Установка зависимостей
