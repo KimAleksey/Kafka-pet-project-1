@@ -7,7 +7,7 @@
 В проекте используются следующие основные компоненты.
 
 - ✔️ Docker - для сборки проекта.
-- ✔️ Kafka + ZooKeeper - для реализации кластера брокера сообщений.
+- ✔️ Kafka + ZooKeeper - для реализации кластера брокера сообщений. 3 broker, 3 zookeeper, 1 kafka ui, 1 kafka schema registry.
 - ✔️ Kafka Schema Registry - для регистрации схемы сообщений.
 - ✔️ Python - для генерации данных и отправки их в Kafka, а также для считывания из Kafka.
 - ✔️ UV - менеджер зависимостей.
@@ -128,3 +128,73 @@ Delivered to users_coordinates [4]
 
 #### schema_registry.py
 
+Используется для подключения к серверу Schema Registry и регистрации схемы для записи и считывания сообщений о координатах полльзователей.
+
+1. Создается python словарь со следующей структурой:
+```python
+# Схема для координат пользователей
+USERS_COORDINATES_JSON_SCHEMA = {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "UserCoordinates",
+    "type": "object",
+    "properties": {
+      "id": {"type": "integer"},
+      "longitude": {"type": "number"},
+      "latitude": {"type": "number"}
+    },
+    "required": ["id", "longitude", "latitude"]
+}
+```
+Здесь важно указать, какие поля и какие типы может иметь сообщение с данной схемой.
+2. Далее идет подключение к серверу Shema registry.
+3. Далее отправляем post запрос для регистрации схемы:
+```python
+payload = {
+    "schemaType": "JSON",
+    "schema": json.dumps(json_schema)
+}
+
+response = requests.post(
+    f"{url}/subjects/{subject}/versions",
+    headers={"Content-Type": "application/vnd.schemaregistry.v1+json"},
+    json=payload
+)
+```
+Здесь python словарь сериализуется в json формат и далее передается в post запрос.
+4. Проверить, что схема зарегистрировалась можно по ссылке:
+[http://localhost:8081/subjects/users-coordinates-values/versions/1](http://localhost:8081/subjects/users-coordinates-values/versions/1)
+
+#### kafka.py
+
+Используется для подключения к Kafka Broker и создания Topic.
+
+1. Подключаемся к Broker.
+2. Через AdminClient и NewTopic создаем topic с заданными параметрами:
+```python
+create_topic(
+    topic_name="users_coordinates",
+    num_partitions=6,
+    replication_factor=2,
+    min_insync_replicas=1,
+    bootstrap_servers=bootstrap_serv
+)
+```
+3. Зайти в UI Kafka. 
+[URL](http://localhost:8888/ui/clusters/local/all-topics?perPage=25)
+
+![img_1.png](docs/images/img_1.png)
+
+4. Убедиться что топик существует.
+
+![img.png](docs/images/img.png)
+
+
+#### generator.py
+
+Используется для генерации данных о координатах пользователей.
+Используется библиотека Faker для имитации данных.
+
+
+#### simple_producer.py
+
+Используется для отправки сообщений в Kafka topic.
