@@ -168,6 +168,8 @@ response = requests.post(
 4. Проверить, что схема зарегистрировалась можно по ссылке:
 [http://localhost:8081/subjects/users-coordinates-values/versions/1](http://localhost:8081/subjects/users-coordinates-values/versions/1)
 
+![img.png](docs/images/img_4.png)
+
 #### kafka.py
 
 Используется для подключения к Kafka Broker и создания Topic.
